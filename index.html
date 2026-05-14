@@ -1,0 +1,149 @@
+!DOCTYPE html
+html lang=en
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    titleAIBV Gateway Myth-Bustertitle
+    script src=httpscdn.tailwindcss.comscript
+    style
+        @import url('httpsfonts.googleapis.comcss2family=Interwght@400;600;700&display=swap');
+        
+        body {
+            font-family 'Inter', sans-serif;
+            background-color #f8fafc;
+        }
+
+        .perspective {
+            perspective 1000px;
+        }
+
+        .card-inner {
+            position relative;
+            width 100%;
+            height 100%;
+            transition transform 0.6s;
+            transform-style preserve-3d;
+            cursor pointer;
+        }
+
+        .card-flipped {
+            transform rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position absolute;
+            width 100%;
+            height 100%;
+            backface-visibility hidden;
+            display flex;
+            flex-direction column;
+            justify-content center;
+            align-items center;
+            border-radius 1rem;
+            padding 1.5rem;
+            box-shadow 0 4px 6px -1px rgb(0 0 0  0.1), 0 2px 4px -2px rgb(0 0 0  0.1);
+        }
+
+        .card-front {
+            background-color white;
+            border 2px solid #22c55e;  Green border for the question side 
+        }
+
+        .card-back {
+            transform rotateY(180deg);
+            color white;
+        }
+
+        .bg-true { background-color #059669; }  Emerald 600 
+        .bg-false { background-color #dc2626; }  Red 600 
+
+         Ensuring text fits and has padding equivalent to one 'a' 
+        .card-text {
+            word-wrap break-word;
+            text-align center;
+            padding 1ch;  Roughly the width of 'a' 
+            font-size clamp(0.875rem, 2.5vw, 1.125rem);
+            line-height 1.4;
+        }
+    style
+head
+body class=p-4 mdp-8
+    div class=max-w-5xl mx-auto
+        header class=text-center mb-10
+            h1 class=text-4xl font-bold text-slate-800 mb-2AIBV Gateway Myth-Busterh1
+            p class=text-lg text-slate-600 italicGroup Coaching 11 Can you work out which statements are True or Falsep
+        header
+
+        div id=game-grid class=grid grid-cols-1 mdgrid-cols-2 lggrid-cols-3 gap-6
+            !-- Cards will be injected here --
+        div
+
+        footer class=mt-12 text-center text-slate-400 text-sm
+            Click a card to reveal the truth. Click again to flip it back.
+        footer
+    div
+
+    script
+        const questions = [
+            {
+                q Your project proposal summary must be exactly 500 words.,
+                a False,
+                explanation It is a 500-word limit, not a target. It should be concise and cover the key points.
+            },
+            {
+                q You must tag all of the AM1 KSBs in your 500-word project proposal summary.,
+                a False,
+                explanation You only need to demonstrate the KSBs in the full proposal, not the initial summary.
+            },
+            {
+                q The summary must be approved by coach and manager before you can progress through Gateway.,
+                a True,
+                explanation Correct! Both your coach and your manager need to sign off on the scope before you proceed.
+            },
+            {
+                q You can begin working on your actual AM1 Proposal before Gateway.,
+                a False,
+                explanation Official work on the proposal starts after the summary is approved and you hit Gateway.
+            },
+            {
+                q In your summary, you need to come up with a solution to the problem.,
+                a False,
+                explanation The summary defines the problem and scope; the solution is what you develop during the project.
+            }
+        ];
+
+        const grid = document.getElementById('game-grid');
+
+        questions.forEach((item, index) = {
+            const card = document.createElement('div');
+            card.className = 'perspective h-64 w-full';
+            
+            const inner = document.createElement('div');
+            inner.className = 'card-inner';
+            inner.onclick = () = inner.classList.toggle('card-flipped');
+
+             Front of Card
+            const front = document.createElement('div');
+            front.className = 'card-front';
+            front.innerHTML = `
+                span class=text-xs font-bold text-green-600 mb-4 uppercase tracking-widestQuestion ${index + 1}span
+                p class=card-text text-slate-800 font-semibold${item.q}p
+            `;
+
+             Back of Card
+            const back = document.createElement('div');
+            const isTrue = item.a === True;
+            back.className = `card-back ${isTrue  'bg-true'  'bg-false'}`;
+            back.innerHTML = `
+                span class=text-2xl font-black mb-2${item.a.toUpperCase()}!span
+                p class=card-text text-white text-sm opacity-90${item.explanation}p
+            `;
+
+            inner.appendChild(front);
+            inner.appendChild(back);
+            card.appendChild(inner);
+            grid.appendChild(card);
+        });
+    script
+body
+html
